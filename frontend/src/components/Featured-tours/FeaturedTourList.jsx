@@ -4,6 +4,7 @@ import { Col } from 'reactstrap'
 import TourCard from '../../shared/TourCard'
 
 const FeaturedTourList = () => {
+
     return (<>
         {
             tourData.map(tour => (
