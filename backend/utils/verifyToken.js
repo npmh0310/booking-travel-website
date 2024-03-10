@@ -24,7 +24,7 @@ const verifyToken = (req, res, next) => {
 
 const verifyUser = (req, res, next) => {
     verifyToken(req, res.next, () => {
-        if (req.user.id === req.params.id || req.user.role === 'admin') {
+        if (req.user.id === req.params.id || req.user.role === 'admin' || req.user.role === 'user') {
             next()
         }
         else {
