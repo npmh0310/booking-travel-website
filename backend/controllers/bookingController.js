@@ -9,13 +9,13 @@ const createBooking = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: "Successfully created",
+            message: "Successfully booked",
             data: savedBooking
         })
     } catch (err) {
         res.status(500).json({
             success: false,
-            message: "Failed to create. Try again"
+            message: "Failed to booking. Try again"
         })
     }
 }

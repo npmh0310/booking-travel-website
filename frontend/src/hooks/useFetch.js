@@ -3,32 +3,35 @@ import { useEffect, useState } from "react";
 const useFetch = (url) => {
     const [data, setData] = useState([]);
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true); // Khởi tạo loading là true khi bắt đầu fetch
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true)
             try {
-                const res = await fetch(url)
+                const response = await fetch(url);
 
-                if (!res.ok) {
-                    setError('failed to fetch')
-                    console.log('failed to fetch')
+                if (!response.ok) {
+                    throw new Error('Failed to fetch'); // Ném lỗi nếu request không thành công
                 }
-                const result = await res.json()
-                setData(result.data)
+
+                const result = await response.json();
+                setData(result.data);
+                setError(null); // Reset lỗi nếu fetch thành công
             } catch (err) {
-                setError(err.message)
+                setError(err.message); // Xử lý lỗi nếu có
+            } finally {
+                setLoading(false); // Dừng loading khi fetch hoàn thành (bao gồm cả lỗi)
             }
-        }
-        fetchData()
-    }, [url])
+        };
+
+        fetchData();
+    }, [url]);
 
     return {
         data,
         error,
         loading
-    }
-}
+    };
+};
 
 export default useFetch;

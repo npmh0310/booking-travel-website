@@ -1,9 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
+import CommonSection from '../shared/CommonSection'
+import { Col, Container, Row } from 'reactstrap'
+import { useLocation } from 'react-router-dom'
+import TourCard from '../shared/TourCard'
+import NewsLetter from '../shared/Newsletter'
 
 const SearchResultList = () => {
-    return (
-        <div>SearchResultList</div>
-    )
+
+    const location = useLocation()
+
+    const [data] = useState(location.state)
+
+    console.log(data)
+
+    return (<>
+        <CommonSection tittle={'Tour Search Result'} />
+        <section>
+            <Container>
+                <Row>
+                    {
+                        data.length === 0
+                            ? (<h4 className='text-center'>No tour found</h4>)
+                            : (data.map(tour => (
+                                <Col lg='3' className='mb-4' key={data._id}>
+                                    <TourCard tour={tour} />
+                                </Col>
+                            )))
+                    }
+                </Row>
+            </Container>
+        </section>
+        <NewsLetter />
+    </>)
 }
 
 export default SearchResultList
